@@ -183,12 +183,15 @@ public class ReformatPTR {
 		case "University of Illinois Legacy Fund":
 			return "UILE";
 		case "Staff work at U of I - U/C Undergrad":
+		case "U of I - U/C Undergrad":
 			return "8UNO";
 		case "Staff work at U of I Champaign Alum":
+		case "U of I Champaign Alum":
 			return "8ICH";
 		case "Staff work at U of I U/C Alum 50-90s":
+		case "U of I U/C Alum 50-90s":
 			return "8IUR";
-		case "U of I  Urbana/Champaign Area Min.":
+		case "U of I  Urbana/Champaign Area Min":
 			return "UIAM";
 		case "U of I U/C Undergrad Scholarships":
 			return "UISC";
