@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -20,47 +21,92 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ReformatPTR {
 	static Map < Integer, Object[] > donorInfo = new TreeMap < Integer, Object[] >();
+	
+	//TODO read in csv file and convert to excel? or just use that data?
+	//TODO ability to read in more than one file and append to same excel sheet
+	
+	public static void readInCsvFile (File[] files) throws IOException{
+        //Scanner inputStream = new Scanner(file);
+		Scanner inputStream;
+        ArrayList<Object> data= new ArrayList<Object>();
+        int cellid=0;
+        donorInfo.clear();
+        
+        for (int index=0;index<files.length;index++) {
+        	inputStream=new Scanner(files[index]);
+            String line = inputStream.nextLine();
 
-	public static void readInData (File readFile) throws IOException{
-		FileInputStream fis = new FileInputStream(readFile);
-
-         XSSFWorkbook workbookImport = new XSSFWorkbook(fis);
-         XSSFSheet spreadsheetImport = workbookImport.getSheetAt(0);
-         XSSFRow row;
-         ArrayList<Object> data= new ArrayList<Object>();
-         Iterator < Row > rowIterator = spreadsheetImport.iterator();
-         int cellid=0;
-         donorInfo.clear();
-
-         while (rowIterator.hasNext())
-         {
-        	 row = (XSSFRow) rowIterator.next();
-        	 Iterator < Cell > cellIterator = row.cellIterator();
-        	 while ( cellIterator.hasNext())
-        	 {
-        		 Cell cell = cellIterator.next();
-        		 switch (cell.getCellType())
-        		 {
-        		 case Cell.CELL_TYPE_NUMERIC:
-        			 data.add(cell.getNumericCellValue());
-        			 //System.out.println(cell.getNumericCellValue());
-        			 break;
-        		 case Cell.CELL_TYPE_STRING:
-        			 data.add(cell.getStringCellValue());
-        			 //System.out.println(cell.getStringCellValue());
-        			 break;
-        		 }
-        	 }
-        	 //System.out.print(data.get(i));
-
-        	 donorInfo.put(cellid,data.toArray());
-        	 data.clear();
-        	 cellid++;
-        	 //System.out.println();
-         }
-         fis.close();
-		 workbookImport.close();
+	        while (inputStream.hasNextLine())
+	        {
+	            line = inputStream.nextLine();
+	            //line=line.replace("\"", "");
+	            //System.out.println(line);
+	            String[] fields = line.split("\",\"");
+	            for (int i=0;i<4;i++) {
+	            	String dataString=fields[i].replace("\"","");
+	            	data.add(dataString);
+	            	System.out.print(dataString+"|");
+	            }
+	            for (int i=4;i<fields.length;i++) {
+	            	String dataString=fields[i].replace("\"","");
+	            	dataString=dataString.replaceAll(",", "");
+	            	if (dataString.equals("")) {
+	            		data.add(new Double(0.0));
+	            	}
+	            	else {
+		            	data.add(new Double(dataString));
+	            	}
+	            	System.out.print(dataString+"|");
+	            }
+	            donorInfo.put(cellid,data.toArray());
+	       	 	data.clear();
+	       	 	cellid++;
+	       	 	System.out.println("");
+	        }
+        inputStream.close();
+        }
 	}
+
+//	public static void readInData (File[] readFiles) throws IOException{
+//		FileInputStream fis = new FileInputStream(readFiles[0]);
+//
+//         XSSFWorkbook workbookImport = new XSSFWorkbook(fis);
+//         XSSFSheet spreadsheetImport = workbookImport.getSheetAt(0);
+//         XSSFRow row;
+//         ArrayList<Object> data= new ArrayList<Object>();
+//         Iterator < Row > rowIterator = spreadsheetImport.iterator();
+//         int cellid=0;
+//         donorInfo.clear();
+//
+//         while (rowIterator.hasNext())
+//         {
+//        	 row = (XSSFRow) rowIterator.next();
+//        	 Iterator < Cell > cellIterator = row.cellIterator();
+//        	 while ( cellIterator.hasNext())
+//        	 {
+//        		 Cell cell = cellIterator.next();
+//        		 switch (cell.getCellType())
+//        		 {
+//        		 case Cell.CELL_TYPE_NUMERIC:
+//        			 data.add(cell.getNumericCellValue());
+//        			 //System.out.println(cell.getNumericCellValue());
+//        			 break;
+//        		 case Cell.CELL_TYPE_STRING:
+//        			 data.add(cell.getStringCellValue());
+//        			 //System.out.println(cell.getStringCellValue());
+//        			 break;
+//        		 }
+//        	 }
+//        	 //System.out.print(data.get(i));
+//
+//        	 donorInfo.put(cellid,data.toArray());
+//        	 data.clear();
+//        	 cellid++;
+//        	 //System.out.println();
+//         }
+//         fis.close();
+//		 workbookImport.close();
+//	}
 
 	public static void writeData(File writeFile, int start, int end) throws IOException{
 		if (start>end) {
@@ -102,12 +148,14 @@ public class ReformatPTR {
 
   	      System.out.println("size "+ (double)donorInfo.get(1).length);
 
-  	      for (int key = 1;key<keyid.size()-1;key++){
+  	      for (int key = 0;key<keyid.size()-1;key++){
 	  		  //for (int key:keyid){
 	  			  double thisFY = (double)donorInfo.get(key)[16];
 	  			  double prevFY = donorInfo.get(key).length>=18?(double)donorInfo.get(key)[17]:0;
+	  			  String donorID = (String)donorInfo.get(key)[2];
 	  			  boolean recurring = false;
 
+	  			  System.out.println(donorID);
 	  			  // check for recurring donor
 	  			  int giftCount=0;
 	  			  int giftStreak=0;
@@ -130,7 +178,7 @@ public class ReformatPTR {
 	  			  //System.out.println("giftStreak "+giftStreak+" giftcount "+giftCount+" max "+maxGiftStreak);
 
 	  			  // if not first or last row and donor gave this FY
-	  			  if (thisFY>0){
+	  			  if (thisFY>0 && !donorID.equals("")){
 	  				//
 	    	        Object [] objectArr = donorInfo.get(key);
 	    	        int column;

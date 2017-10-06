@@ -16,12 +16,15 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import org.apache.poi.ss.formula.functions.EDate;
+
 import controller.ReformatPTR;
 
 
 public class MainFrame extends JFrame {
 	JPanel panel;
 	File ptrFile;
+	File[] ptrFiles;
 	String[] monthStrings = {"July","August","September","October","November","December","January","February","March","April","May","June"};
 
 
@@ -35,9 +38,10 @@ public class MainFrame extends JFrame {
 
 		JTextField startMonth = new JTextField(10);
 		JTextField endMonth = new JTextField(10);
-		JButton runButton = new JButton("Run");
+		//JButton runButton = new JButton("Run");
 		JButton openFileButton = new JButton("Open File");
 		JButton convertFileButton = new JButton("Convert File");
+		JButton readCsvButton = new JButton("Read csv");
 		JTable fileDisplayTable;
 
 
@@ -50,22 +54,39 @@ public class MainFrame extends JFrame {
 		panel.add(endMonthComboBox);
 		//panel.add(endMonth);
 		panel.add(openFileButton);
-		panel.add(runButton);
+		//panel.add(runButton);
+		panel.add(readCsvButton);
 		panel.add(convertFileButton);
-
-
-		runButton.addActionListener(new ActionListener() {
-
+		
+		readCsvButton.addActionListener(new ActionListener() {
+			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("run button clicked");
+			public void actionPerformed(ActionEvent ae) {
+				System.out.println("csv button clicked");
+
 				try {
-					ReformatPTR.readInData(ptrFile);
-				} catch (IOException e) {
-					e.printStackTrace();
+					//ReformatPTR.readInCsvFile(ptrFile);
+					ReformatPTR.readInCsvFile(ptrFiles);
+
+				}
+				catch (IOException ie) {
+					ie.printStackTrace();
 				}
 			}
 		});
+
+//		runButton.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				System.out.println("run button clicked");
+//				try {
+//					ReformatPTR.readInData(ptrFiles);
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
 
 		openFileButton.addActionListener(new ActionListener() {
 
@@ -73,10 +94,11 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("open file button clicked");
 				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setMultiSelectionEnabled(true);
 				fileChooser.setCurrentDirectory(new File("c://users/kristin/onedrive/ivcf work stuff/donorsnap import files/"));
 				int choice = fileChooser.showOpenDialog(null);
-				ptrFile=fileChooser.getSelectedFile();
-				System.out.println("file " +ptrFile.getName());
+				ptrFiles=fileChooser.getSelectedFiles();
+				System.out.println("file " +ptrFiles[0].getName());
 			}
 		});
 

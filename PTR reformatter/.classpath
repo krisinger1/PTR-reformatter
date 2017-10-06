@@ -2,13 +2,13 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="C:/poi-3.15/lib/commons-collections4-4.1.jar"/>
-	<classpathentry kind="lib" path="C:/poi-3.15/ooxml-lib/xmlbeans-2.6.0.jar"/>
-	<classpathentry kind="lib" path="C:/poi-3.15/poi-3.15.jar"/>
-	<classpathentry kind="lib" path="C:/poi-3.15/poi-examples-3.15.jar"/>
-	<classpathentry kind="lib" path="C:/poi-3.15/poi-excelant-3.15.jar"/>
-	<classpathentry kind="lib" path="C:/poi-3.15/poi-ooxml-3.15.jar"/>
-	<classpathentry kind="lib" path="C:/poi-3.15/poi-ooxml-schemas-3.15.jar"/>
-	<classpathentry kind="lib" path="C:/poi-3.15/poi-scratchpad-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/krisi/Documents/Coding/poi-bin-3.17-20170915/poi-3.17/lib/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/krisi/Documents/Coding/poi-bin-3.17-20170915/poi-3.17/ooxml-lib/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/krisi/Documents/Coding/poi-bin-3.17-20170915/poi-3.17/poi-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/krisi/Documents/Coding/poi-bin-3.17-20170915/poi-3.17/poi-examples-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/krisi/Documents/Coding/poi-bin-3.17-20170915/poi-3.17/poi-excelant-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/krisi/Documents/Coding/poi-bin-3.17-20170915/poi-3.17/poi-ooxml-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/krisi/Documents/Coding/poi-bin-3.17-20170915/poi-3.17/poi-ooxml-schemas-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/krisi/Documents/Coding/poi-bin-3.17-20170915/poi-3.17/poi-scratchpad-3.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
