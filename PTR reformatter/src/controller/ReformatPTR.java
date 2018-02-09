@@ -130,7 +130,7 @@ public class ReformatPTR {
   	      cell =row.createCell(1);
   	      cell.setCellValue("FiscalYear");
   	      cell =row.createCell(2);
-  	      cell.setCellValue("DonorID");
+  	      cell.setCellValue("ImportKey");
   	      cell =row.createCell(3);
   	      cell.setCellValue("Name");
   	      cell =row.createCell(4);
